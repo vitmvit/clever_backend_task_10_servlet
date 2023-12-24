@@ -23,6 +23,11 @@ import java.util.List;
 
 import static org.example.constant.Constant.*;
 
+/**
+ * Класс CatController является сервлетом и обрабатывает запросы, связанные с объектами Cat.
+ *
+ * @author Витикова Мария
+ */
 @WebServlet
 public class CatController extends HttpServlet {
 
@@ -34,6 +39,15 @@ public class CatController extends HttpServlet {
         super.init(config);
     }
 
+    /**
+     * Метод обрабатывает GET-запросы, связанные с объектами Cat.
+     * В зависимости от параметров запроса "id", "page" и "count" выполняет соответствующую обработку запроса.
+     * Отправляет соответствующий ответ на запрос.
+     *
+     * @param request  объект HttpServletRequest для получения параметров запроса
+     * @param response объект HttpServletResponse для отправки ответа
+     * @throws IOException в случае ошибки при работе с потоком вывода
+     */
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String idParam = request.getParameter("id");
@@ -114,6 +128,16 @@ public class CatController extends HttpServlet {
         response.setStatus(400);
     }
 
+    /**
+     * Метод обрабатывает POST-запросы, связанные с созданием объекта Cat.
+     * Читает переданные данные запроса и преобразует их в объект CatCreateDto.
+     * Создает новый объект CatDto с помощью метода create() сервиса.
+     * Отправляет созданный объект CatDto в качестве ответа на запрос.
+     *
+     * @param request  объект HttpServletRequest для получения данных запроса
+     * @param response объект HttpServletResponse для отправки ответа
+     * @throws IOException в случае ошибки при работе с потоком вывода
+     */
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         try {
@@ -135,6 +159,16 @@ public class CatController extends HttpServlet {
         }
     }
 
+    /**
+     * Метод обрабатывает PUT-запросы, связанные с обновлением объекта Cat.
+     * Читает переданные данные запроса и преобразует их в объект CatUpdateDto.
+     * Обновляет объект CatDto с помощью метода update() сервиса.
+     * Отправляет обновленный объект CatDto в качестве ответа на запрос.
+     *
+     * @param request  объект HttpServletRequest для получения данных запроса
+     * @param response объект HttpServletResponse для отправки ответа
+     * @throws IOException в случае ошибки при работе с потоком вывода
+     */
     @Override
     public void doPut(HttpServletRequest request, HttpServletResponse response) throws IOException {
         try {
@@ -156,6 +190,15 @@ public class CatController extends HttpServlet {
         }
     }
 
+    /**
+     * Метод обрабатывает DELETE-запросы, связанные с удалением объекта Cat.
+     * Получает идентификатор объекта Cat из параметров запроса и удаляет объект с помощью метода delete() сервиса.
+     * Отправляет сообщение об успешном удалении в качестве ответа на запрос.
+     *
+     * @param request  объект HttpServletRequest для получения данных запроса
+     * @param response объект HttpServletResponse для отправки ответа
+     * @throws IOException в случае ошибки при работе с потоком вывода
+     */
     @Override
     public void doDelete(HttpServletRequest request, HttpServletResponse response) throws IOException {
         try {

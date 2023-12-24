@@ -28,15 +28,25 @@ public class Constant {
     public static final int PAGE_NUMBER = 1;
 
     // error
+    public static final String CONNECTION_ERROR = "Connection error";
     public static final String CAT_NOT_FOUND_ERROR = "Cat not found";
     public static final String RETRIEVING_ERROR = "Error retrieving cats list";
     public static final String INVALID_REQUEST_PARAMETERS_ERROR = "Invalid request parameters";
     public static final String CAT_CREATED_ERROR = "Cat created error";
     public static final String CAT_UPDATED_ERROR = "Cat updated error";
     public static final String CAT_DELETED_ERROR = "Cat deleted error";
+    public static final String CAT_IS_NULL_ERROR = "Cat is null";
 
     // message
     public static final String CAT_IS_DELETED_MESSAGE = "Cat is deleted";
     public static final String NO_SUCH_DATA_MESSAGE = "No such data";
     public static final String CHECK_WAS_CREATED_MESSAGE = "Check was created";
+
+    // datasource
+    public static final String DRIVER_SOURCE = "driver";
+    public static final String URL_SOURCE = "url";
+    public static final String USERNAME_SOURCE = "username";
+    public static final String PASSWORD_SOURCE = "password";
+    public static final String ENABLED_SOURCE = "enabled";
+    public static final String CHANGELOG_SOURCE = "changelog";
 }

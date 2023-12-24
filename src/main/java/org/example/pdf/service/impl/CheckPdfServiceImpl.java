@@ -17,6 +17,9 @@ import java.time.LocalDateTime;
 import static org.example.constant.Constant.FILE_BASE_CHECK;
 import static org.example.constant.Constant.PDF;
 
+/**
+ * Класс CheckPdfServiceImpl реализует интерфейс PdfService и предоставляет функционал для создания чека в формате PDF на основе объекта CatDto.
+ */
 public class CheckPdfServiceImpl implements PdfService {
 
     @SneakyThrows

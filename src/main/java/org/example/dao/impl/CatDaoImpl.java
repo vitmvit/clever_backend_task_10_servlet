@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static org.example.constant.Constant.CAT_IS_NULL_ERROR;
+
 public class CatDaoImpl implements CatDao {
 
     private final Optional<Connection> connection;
@@ -42,9 +44,7 @@ public class CatDaoImpl implements CatDao {
         if (connection.isPresent()) {
             String sql = "SELECT id, name, breed, color, age FROM cats";
             try {
-                var conn = connection.get();
-                var statement = conn.createStatement();
-                var resultSet = statement.executeQuery(sql);
+                var resultSet = connection.get().createStatement().executeQuery(sql);
                 return getAllFromResultSet(resultSet);
             } catch (SQLException ex) {
                 throw new SqlExecuteException(ex);
@@ -56,7 +56,7 @@ public class CatDaoImpl implements CatDao {
     @Override
     public Cat create(Cat cat) {
         if (cat == null) {
-            throw new IllegalArgumentException("Cat is null");
+            throw new IllegalArgumentException(CAT_IS_NULL_ERROR);
         }
         if (connection.isPresent()) {
             String sql = "INSERT INTO cats (name, breed, color, age) VALUES (?, ?, ?, ?)";
@@ -80,7 +80,7 @@ public class CatDaoImpl implements CatDao {
     @Override
     public Cat update(Cat cat) {
         if (cat == null) {
-            throw new IllegalArgumentException("Cat is null");
+            throw new IllegalArgumentException(CAT_IS_NULL_ERROR);
         }
         if (connection.isPresent()) {
             String sql = "UPDATE cats SET name = ?, breed = ?, color = ?, age = ? WHERE id = ?";

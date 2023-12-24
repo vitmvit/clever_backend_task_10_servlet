@@ -6,6 +6,8 @@ import java.sql.Connection;
 import java.util.Map;
 import java.util.Optional;
 
+import static org.example.constant.Constant.*;
+
 public class DbConnection {
 
     private final ConfigReader configReader = new ConfigReader();
@@ -21,10 +23,10 @@ public class DbConnection {
     private void createConnection() {
         if (ConnectionSingleton.getInstance().getConnection().isEmpty()) {
             Connection connection = new DatabaseConnector().connection(
-                    configMap.get("driver"),
-                    configMap.get("url"),
-                    configMap.get("username"),
-                    configMap.get("password")
+                    configMap.get(DRIVER_SOURCE),
+                    configMap.get(URL_SOURCE),
+                    configMap.get(USERNAME_SOURCE),
+                    configMap.get(PASSWORD_SOURCE)
             );
             if (connection == null) {
                 ConnectionSingleton.setInstance(Optional.empty());

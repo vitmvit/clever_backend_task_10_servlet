@@ -19,6 +19,11 @@ import java.io.IOException;
 import static org.example.constant.Constant.CAT_NOT_FOUND_ERROR;
 import static org.example.constant.Constant.CHECK_WAS_CREATED_MESSAGE;
 
+/**
+ * Класс CheckController является сервлетом и обрабатывает GET-запросы для создания чека PDF на основе объекта Cat.
+ * Получает идентификатор объекта Cat из параметров запроса и создает чек PDF с помощью сервиса PdfService.
+ * Отправляет соответствующий ответ на запрос.
+ */
 @WebServlet
 public class CheckController extends HttpServlet {
 

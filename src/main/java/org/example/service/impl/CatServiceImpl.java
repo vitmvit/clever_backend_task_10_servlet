@@ -119,6 +119,14 @@ public class CatServiceImpl implements CatService {
         catDao.delete(id);
     }
 
+    /**
+     * Возвращает список объектов CatDto с указанной страницы и количеством объектов на странице.
+     * Если список пуст, возвращает пустой список.
+     *
+     * @param page  номер страницы
+     * @param count количество объектов на странице
+     * @return список объектов CatDto
+     */
     @Override
     public List<CatDto> getListByPageAndCount(int page, int count) {
 

@@ -3,8 +3,12 @@ package org.example.filter;
 import javax.servlet.*;
 import java.io.IOException;
 
+/**
+ * Класс EncodingFilter является фильтром и предназначен для установки кодировки запроса и ответа на UTF-8
+ * и установки типа содержимого ответа на "application/json".
+ */
 public class EncodingFilter implements Filter {
-    public void init(FilterConfig config) throws ServletException {
+    public void init(FilterConfig config) {
     }
 
     public void destroy() {
