@@ -12,11 +12,11 @@
 
             CREATE TABLE "public"."cats"
             (
-                "id"    bigint DEFAULT nextval('cats_id_seq') NOT NULL,
-                "name"  text                                  NOT NULL,
-                "color" text                                  NOT NULL,
-                "breed" text                                  NOT NULL,
-                "age"   integer                               NOT NULL,
+                "id"    bigint DEFAULT nextval('cat_id_seq') NOT NULL,
+                "name"  text                                 NOT NULL,
+                "color" text                                 NOT NULL,
+                "breed" text                                 NOT NULL,
+                "age"   integer                              NOT NULL,
                 CONSTRAINT "cats_pkey" PRIMARY KEY ("id")
             ) WITH (oids = false);
 
