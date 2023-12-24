@@ -41,8 +41,10 @@ public class CatDaoImpl implements CatDao {
     public List<Cat> getAll() {
         if (connection.isPresent()) {
             String sql = "SELECT id, name, breed, color, age FROM cats";
-            try (var preparedStatement = connection.get().prepareStatement(sql)) {
-                var resultSet = preparedStatement.executeQuery();
+            try {
+                var conn = connection.get();
+                var statement = conn.createStatement();
+                var resultSet = statement.executeQuery(sql);
                 return getAllFromResultSet(resultSet);
             } catch (SQLException ex) {
                 throw new SqlExecuteException(ex);
@@ -57,7 +59,7 @@ public class CatDaoImpl implements CatDao {
             throw new IllegalArgumentException("Cat is null");
         }
         if (connection.isPresent()) {
-            String sql = "INSERT INTO cats (name, breed, color, age) VALUES (?,?,?,?)";
+            String sql = "INSERT INTO cats (name, breed, color, age) VALUES (?, ?, ?, ?)";
             try (PreparedStatement ps = connection.get().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
                 ps.setString(1, cat.getName());
                 ps.setString(2, cat.getBreed());
