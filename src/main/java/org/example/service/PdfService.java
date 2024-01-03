@@ -1,4 +1,4 @@
-package org.example.pdf.service;
+package org.example.service;
 
 import org.example.model.dto.CatDto;
 

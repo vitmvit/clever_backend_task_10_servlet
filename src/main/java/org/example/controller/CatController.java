@@ -1,15 +1,13 @@
 package org.example.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.example.converter.CatConverter;
-import org.example.converter.CatConverterImpl;
-import org.example.dao.CatDao;
-import org.example.dao.impl.CatDaoImpl;
+import org.example.config.ApplicationConfig;
 import org.example.model.dto.CatCreateDto;
 import org.example.model.dto.CatDto;
 import org.example.model.dto.CatUpdateDto;
 import org.example.service.CatService;
-import org.example.service.impl.CatServiceImpl;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -28,12 +26,17 @@ import static org.example.constant.Constant.*;
  *
  * @author Витикова Мария
  */
+@Component
 @WebServlet
 public class CatController extends HttpServlet {
 
-    private final CatDao dao = new CatDaoImpl();
-    private final CatConverter converter = new CatConverterImpl();
-    private final CatService service = new CatServiceImpl(dao, converter);
+    private final CatService catService;
+    private final AnnotationConfigApplicationContext context;
+
+    public CatController() {
+        this.context = new AnnotationConfigApplicationContext(ApplicationConfig.class);
+        catService = context.getBean(CatService.class);
+    }
 
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
@@ -48,6 +51,7 @@ public class CatController extends HttpServlet {
      * @param response объект HttpServletResponse для отправки ответа
      * @throws IOException в случае ошибки при работе с потоком вывода
      */
+
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String idParam = request.getParameter("id");
@@ -57,7 +61,7 @@ public class CatController extends HttpServlet {
         // Обработка запроса по параметру "id"
         if (idParam != null) {
             try {
-                CatDto object = service.getById(Long.parseLong(idParam));
+                CatDto object = catService.getById(Long.parseLong(idParam));
                 ObjectMapper objectMapper = new ObjectMapper();
 
                 response.getOutputStream().println(objectMapper.writeValueAsString(object));
@@ -72,7 +76,7 @@ public class CatController extends HttpServlet {
         // Обработка запроса по параметрам "page" и "count"
         if (pageParam != null && countParam != null) {
             try {
-                List<CatDto> objects = service.getListByPageAndCount(Integer.parseInt(pageParam), Integer.parseInt(countParam));
+                List<CatDto> objects = catService.getListByPageAndCount(Integer.parseInt(pageParam), Integer.parseInt(countParam));
 
                 if (!objects.isEmpty()) {
                     ObjectMapper objectMapper = new ObjectMapper();
@@ -91,7 +95,7 @@ public class CatController extends HttpServlet {
         // Обработка запроса по параметру "page"
         if (pageParam != null) {
             try {
-                List<CatDto> objects = service.getListByPageAndCount(Integer.parseInt(pageParam), PAGE_SIZE);
+                List<CatDto> objects = catService.getListByPageAndCount(Integer.parseInt(pageParam), PAGE_SIZE);
                 if (!objects.isEmpty()) {
                     ObjectMapper objectMapper = new ObjectMapper();
                     response.getOutputStream().println(objectMapper.writeValueAsString(objects));
@@ -109,7 +113,7 @@ public class CatController extends HttpServlet {
         // Обработка запроса по параметру "count"
         if (countParam != null) {
             try {
-                List<CatDto> objects = service.getListByPageAndCount(PAGE_NUMBER, Integer.parseInt(countParam));
+                List<CatDto> objects = catService.getListByPageAndCount(PAGE_NUMBER, Integer.parseInt(countParam));
                 if (!objects.isEmpty()) {
                     ObjectMapper objectMapper = new ObjectMapper();
                     response.getOutputStream().println(objectMapper.writeValueAsString(objects));
@@ -149,7 +153,7 @@ public class CatController extends HttpServlet {
             }
             ObjectMapper objectMapper = new ObjectMapper();
             CatCreateDto catCreateDto = objectMapper.readValue(jb.toString(), CatCreateDto.class);
-            CatDto catDto = service.create(catCreateDto);
+            CatDto catDto = catService.create(catCreateDto);
 
             response.getOutputStream().println(objectMapper.writeValueAsString(catDto));
             response.setStatus(200);
@@ -180,7 +184,7 @@ public class CatController extends HttpServlet {
             }
 
             ObjectMapper objectMapper = new ObjectMapper();
-            CatDto catDto = service.update(objectMapper.readValue(jb.toString(), CatUpdateDto.class));
+            CatDto catDto = catService.update(objectMapper.readValue(jb.toString(), CatUpdateDto.class));
 
             response.getOutputStream().println(objectMapper.writeValueAsString(catDto));
             response.setStatus(200);
@@ -202,7 +206,7 @@ public class CatController extends HttpServlet {
     @Override
     public void doDelete(HttpServletRequest request, HttpServletResponse response) throws IOException {
         try {
-            service.delete(Long.valueOf(request.getParameter("id")));
+            catService.delete(Long.valueOf(request.getParameter("id")));
             response.getOutputStream().println(CAT_IS_DELETED_MESSAGE);
             response.setStatus(200);
         } catch (Exception e) {

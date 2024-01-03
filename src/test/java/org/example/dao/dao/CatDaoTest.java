@@ -1,13 +1,14 @@
 package org.example.dao.dao;
 
-import org.example.connection.DbConnection;
+import org.example.config.ApplicationConfig;
 import org.example.dao.CatDao;
-import org.example.dao.impl.CatDaoImpl;
 import org.example.dao.util.CatTestData;
 import org.example.model.entity.Cat;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,14 +17,16 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.*;
 
-
+@Component
 public class CatDaoTest {
+
     private CatDao catDao;
+    private AnnotationConfigApplicationContext context;
 
     @BeforeEach
     void setUp() {
-        new DbConnection().getConnection();
-        catDao = new CatDaoImpl();
+        this.context = new AnnotationConfigApplicationContext(ApplicationConfig.class);
+        catDao = context.getBean(CatDao.class);
         databaseClear();
     }
 

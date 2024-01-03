@@ -2,10 +2,12 @@ package org.example.observer.impl;
 
 import org.example.model.dto.CatDto;
 import org.example.observer.Observer;
-import org.example.pdf.service.impl.ReportPdfServiceImpl;
+import org.example.service.impl.ReportPdfServiceImpl;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ObserverImpl implements Observer {
-    private ReportPdfServiceImpl pdfService;
+    private final ReportPdfServiceImpl pdfService;
 
     public ObserverImpl(ReportPdfServiceImpl pdfService) {
         this.pdfService = pdfService;

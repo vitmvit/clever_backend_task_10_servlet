@@ -1,4 +1,4 @@
-package org.example.pdf.service.impl;
+package org.example.service.impl;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -8,7 +8,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 import lombok.SneakyThrows;
 import org.example.exception.CheckGenerateException;
 import org.example.model.dto.CatDto;
-import org.example.pdf.service.PdfService;
+import org.example.service.PdfService;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -28,7 +28,6 @@ public class CheckPdfServiceImpl implements PdfService {
         try {
             Document document = new Document(PageSize.A6);
             PdfWriter.getInstance(document, new FileOutputStream(FILE_BASE_CHECK + catDto.getName() + PDF));
-
             document.open();
             Paragraph paragraph = new Paragraph();
             paragraph.add("Cat name: " + catDto.getName() + "\n");
