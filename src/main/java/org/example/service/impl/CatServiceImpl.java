@@ -24,7 +24,6 @@ import java.util.stream.Collectors;
  * @author Витикова Мария
  * @see org.example.service.CatService
  */
-//@Component
 @AllArgsConstructor
 public class CatServiceImpl implements CatService {
 

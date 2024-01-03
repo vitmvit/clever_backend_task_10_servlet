@@ -4,9 +4,6 @@ import com.itextpdf.text.Font;
 
 public class Constant {
 
-//    public static final String SOLUTION_CONFIG = "application.yml_";
-//    public static final String SOLUTION_CONFIG = "application.yml_";
-
     // cache
     public static final String LRU = "lru";
     public static final String LFU = "lfu";

@@ -6,14 +6,12 @@ import org.example.model.dto.CatDto;
 import org.example.model.dto.CatUpdateDto;
 import org.example.model.entity.Cat;
 import org.example.model.entity.Cat.CatBuilder;
-import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-01-03T12:43:39+0300",
+    date = "2024-01-03T14:44:10+0300",
     comments = "version: 1.4.1.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.4.jar, environment: Java 17.0.7 (Amazon.com Inc.)"
 )
-@Component
 public class CatConverterImpl implements CatConverter {
 
     @Override

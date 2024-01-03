@@ -9,8 +9,6 @@ import lombok.SneakyThrows;
 import org.example.exception.CheckGenerateException;
 import org.example.model.dto.CatDto;
 import org.example.service.PdfService;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Service;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -22,8 +20,6 @@ import static org.example.constant.Constant.PDF;
 /**
  * Класс CheckPdfServiceImpl реализует интерфейс PdfService и предоставляет функционал для создания чека в формате PDF на основе объекта CatDto.
  */
-@Qualifier("checkPdfServiceImpl")
-@Service
 public class CheckPdfServiceImpl implements PdfService {
 
     @SneakyThrows

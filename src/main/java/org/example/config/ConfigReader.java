@@ -23,31 +23,6 @@ public class ConfigReader {
         configMap.put("url", environment.getProperty("url"));
         configMap.put("username", environment.getProperty("username"));
         configMap.put("password", environment.getProperty("password"));
-        // Другие конфигурационные значения
         return configMap;
     }
 }
-//
-//public class ConfigReader {
-//
-//    public Map<String, String> getConfigMap() {
-//        try {
-//            var properties = loadProperties();
-//            Map<String, String> configMap = new HashMap<>(properties.size());
-//            for (Map.Entry<Object, Object> item : properties.entrySet()) {
-//                configMap.put((String) item.getKey(), (String) item.getValue());
-//            }
-//            return configMap;
-//        } catch (IOException e) {
-//            throw new ResourceNotFoundException(e);
-//        }
-//    }
-//
-//    private Properties loadProperties() throws IOException {
-//        var properties = new Properties();
-//        var inputStream = ConfigReader.class.getClassLoader().getResourceAsStream(SOLUTION_CONFIG);
-//        properties.load(inputStream);
-//        inputStream.close();
-//        return properties;
-//    }
-//}

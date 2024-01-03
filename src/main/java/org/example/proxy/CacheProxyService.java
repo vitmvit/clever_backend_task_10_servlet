@@ -24,11 +24,8 @@ import static org.example.constant.Constant.LRU;
  *
  * @author Витикова Мария
  */
-//@Aspect
 @Component
 public class CacheProxyService {
-
-//    private final ConfigReader configReader = new ConfigReader();
 
     private final Cache<Long, CatDto> cache;
 
@@ -45,16 +42,6 @@ public class CacheProxyService {
             throw new ConfigException();
         }
     }
-//    public CacheProxyService() {
-//        Map<String, String> configMap = configReader.getConfigMap();
-//        if (configMap.get("algorithm").equals(LRU)) {
-//            this.cache = new CacheLru<>(Integer.parseInt(configMap.get("capacity")));
-//        } else if (configMap.get("algorithm").equals(LFU)) {
-//            this.cache = new CacheLfu<>(Integer.parseInt(configMap.get("capacity")));
-//        } else {
-//            throw new ConfigException();
-//        }
-//    }
 
     @Override
     public int hashCode() {
