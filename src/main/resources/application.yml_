@@ -7,5 +7,5 @@ cache:
   algorithm: lru
   capacity: 10
 liquibase:
-  enabled: false
+  enabled: true
   changelog: changelog-master.xml

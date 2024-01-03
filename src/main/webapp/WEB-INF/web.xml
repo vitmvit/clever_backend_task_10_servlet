@@ -24,13 +24,23 @@
         <url-pattern>/cats</url-pattern>
     </servlet-mapping>
 
-    <servlet>
-        <servlet-name>CheckController</servlet-name>
-        <servlet-class>org.example.controller.CheckController</servlet-class>
-    </servlet>
+    <!--    <servlet>-->
+    <!--        <servlet-name>PingController</servlet-name>-->
+    <!--        <servlet-class>org.example.controller.PingController</servlet-class>-->
+    <!--    </servlet>-->
 
-    <servlet-mapping>
-        <servlet-name>CheckController</servlet-name>
-        <url-pattern>/cats/check</url-pattern>
-    </servlet-mapping>
+    <!--    <servlet-mapping>-->
+    <!--        <servlet-name>PingController</servlet-name>-->
+    <!--        <url-pattern>/</url-pattern>-->
+    <!--    </servlet-mapping>-->
+
+    <!--    <servlet>-->
+    <!--        <servlet-name>CheckController</servlet-name>-->
+    <!--        <servlet-class>org.example.controller.CheckController</servlet-class>-->
+    <!--    </servlet>-->
+
+    <!--    <servlet-mapping>-->
+    <!--        <servlet-name>CheckController</servlet-name>-->
+    <!--        <url-pattern>/cats/check</url-pattern>-->
+    <!--    </servlet-mapping>-->
 </web-app>

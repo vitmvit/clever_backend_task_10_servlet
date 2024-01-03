@@ -2,16 +2,15 @@ package org.example.proxy;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
-import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.example.cache.Cache;
 import org.example.cache.impl.CacheLfu;
 import org.example.cache.impl.CacheLru;
-import org.example.config.ConfigReader;
 import org.example.exception.ConfigException;
 import org.example.model.dto.CatDto;
-
-import java.util.Map;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import static org.example.constant.Constant.LFU;
 import static org.example.constant.Constant.LRU;
@@ -25,26 +24,37 @@ import static org.example.constant.Constant.LRU;
  *
  * @author Витикова Мария
  */
-@Aspect
+//@Aspect
+@Component
 public class CacheProxyService {
 
-    private final ConfigReader configReader = new ConfigReader();
+//    private final ConfigReader configReader = new ConfigReader();
 
     private final Cache<Long, CatDto> cache;
 
     /**
      * Создает объект CacheProxyService и инициализирует кэш в соответствии с конфигурацией.
      */
-    public CacheProxyService() {
-        Map<String, String> configMap = configReader.getConfigMap();
-        if (configMap.get("algorithm").equals(LRU)) {
-            this.cache = new CacheLru<>(Integer.parseInt(configMap.get("capacity")));
-        } else if (configMap.get("algorithm").equals(LFU)) {
-            this.cache = new CacheLfu<>(Integer.parseInt(configMap.get("capacity")));
+    @Autowired
+    public CacheProxyService(@Value("${cache.algorithm}") String algorithm, @Value("${cache.capacity}") int capacity) {
+        if (algorithm.equals(LRU)) {
+            this.cache = new CacheLru<>(capacity);
+        } else if (algorithm.equals(LFU)) {
+            this.cache = new CacheLfu<>(capacity);
         } else {
             throw new ConfigException();
         }
     }
+//    public CacheProxyService() {
+//        Map<String, String> configMap = configReader.getConfigMap();
+//        if (configMap.get("algorithm").equals(LRU)) {
+//            this.cache = new CacheLru<>(Integer.parseInt(configMap.get("capacity")));
+//        } else if (configMap.get("algorithm").equals(LFU)) {
+//            this.cache = new CacheLfu<>(Integer.parseInt(configMap.get("capacity")));
+//        } else {
+//            throw new ConfigException();
+//        }
+//    }
 
     @Override
     public int hashCode() {

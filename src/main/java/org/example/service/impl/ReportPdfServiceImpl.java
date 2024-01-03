@@ -1,4 +1,4 @@
-package org.example.pdf.service.impl;
+package org.example.service.impl;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Image;
@@ -9,7 +9,9 @@ import com.itextpdf.text.pdf.PdfWriter;
 import org.example.exception.ReportGenerateException;
 import org.example.model.dto.CatDto;
 import org.example.observer.Observer;
-import org.example.pdf.service.PdfService;
+import org.example.service.PdfService;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
 
 import java.io.FileOutputStream;
 import java.util.Date;
@@ -21,6 +23,8 @@ import static org.example.constant.Constant.*;
  * Отчеты генерируются в формате PDF с использованием библиотеки iText.
  * Отчеты генерируются при получении обновлений о создании новых котов.
  */
+@Qualifier("reportPdfServiceImpl")
+@Service
 public class ReportPdfServiceImpl implements Observer, PdfService {
 
     /**
