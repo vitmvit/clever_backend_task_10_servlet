@@ -1,5 +1,6 @@
 package org.example.config;
 
+import liquibase.integration.spring.SpringLiquibase;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -27,6 +28,12 @@ public class DatasourceConfig {
     @Value("${spring.datasource.password}")
     private String password;
 
+    @Value("${liquibase.changelog}")
+    private String changelog;
+
+    @Value("${liquibase.enabled}")
+    private String enabled;
+
     @Bean
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
@@ -41,5 +48,14 @@ public class DatasourceConfig {
     @Qualifier("dataSource")
     public JdbcOperations jdbcTemplate() {
         return new JdbcTemplate(dataSource());
+    }
+
+    @Bean
+    public SpringLiquibase liquibase() {
+        SpringLiquibase liquibase = new SpringLiquibase();
+        liquibase.setDataSource(dataSource());
+        liquibase.setChangeLog(changelog);
+        liquibase.setShouldRun(Boolean.parseBoolean(enabled));
+        return liquibase;
     }
 }
