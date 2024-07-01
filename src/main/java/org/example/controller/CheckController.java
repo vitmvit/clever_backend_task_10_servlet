@@ -1,14 +1,11 @@
 package org.example.controller;
 
-import org.example.converter.CatConverter;
-import org.example.converter.CatConverterImpl;
-import org.example.dao.CatDao;
-import org.example.dao.impl.CatDaoImpl;
+import org.example.config.ApplicationConfig;
 import org.example.model.dto.CatDto;
-import org.example.pdf.service.PdfService;
-import org.example.pdf.service.impl.CheckPdfServiceImpl;
 import org.example.service.CatService;
-import org.example.service.impl.CatServiceImpl;
+import org.example.service.PdfService;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -24,13 +21,20 @@ import static org.example.constant.Constant.CHECK_WAS_CREATED_MESSAGE;
  * Получает идентификатор объекта Cat из параметров запроса и создает чек PDF с помощью сервиса PdfService.
  * Отправляет соответствующий ответ на запрос.
  */
+@Component
 @WebServlet
 public class CheckController extends HttpServlet {
 
-    private final CatDao dao = new CatDaoImpl();
-    private final CatConverter converter = new CatConverterImpl();
-    private final CatService catService = new CatServiceImpl(dao, converter);
-    private final PdfService pdfService = new CheckPdfServiceImpl();
+    private final CatService catService;
+
+    private final PdfService pdfService;
+    private final AnnotationConfigApplicationContext context;
+
+    public CheckController() {
+        this.context = new AnnotationConfigApplicationContext(ApplicationConfig.class);
+        catService = context.getBean(CatService.class);
+        pdfService = context.getBean(PdfService.class);
+    }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {

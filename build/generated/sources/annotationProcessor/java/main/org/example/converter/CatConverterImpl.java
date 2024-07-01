@@ -9,8 +9,8 @@ import org.example.model.entity.Cat.CatBuilder;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-12-24T23:18:29+0300",
-    comments = "version: 1.4.1.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.4.jar, environment: Java 17.0.9 (GraalVM Community)"
+    date = "2024-01-03T16:20:52+0300",
+    comments = "version: 1.4.1.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.4.jar, environment: Java 17.0.7 (Amazon.com Inc.)"
 )
 public class CatConverterImpl implements CatConverter {
 
