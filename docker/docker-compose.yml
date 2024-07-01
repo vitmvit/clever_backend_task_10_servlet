@@ -1,0 +1,44 @@
+version: '3.1'
+
+volumes:
+  mysql:
+  postgre:
+
+networks:
+  dbsrv:
+    name: dbsrv
+    driver: bridge
+
+services:
+
+  adminer:
+    container_name: adminer
+    build:
+      context: ./adminer
+      dockerfile: Dockerfile
+    restart: always
+    environment:
+      ADMINER_DESIGN: 'pappu687'
+      POSTRGRE_HOST: postgre_server
+    networks:
+      - dbsrv
+    ports:
+      - 80:8080
+    links:
+      - postgre:postgre_server
+
+  postgre:
+    container_name: postgre
+    image: postgres:latest
+    environment:
+      - LC_ALL=C.UTF-8
+      - POSTGRES_DB=clever_lab_task_10
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_PORT=5432
+    networks:
+      - dbsrv
+    ports:
+      - 5432:5432
+    volumes:
+      - postgre:/var/lib/postgresql/data
